@@ -1,9 +1,11 @@
 package br.com.br.transacao.transacoes;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface TransacaoRepository extends JpaRepository<Transacao, Long>{
+public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
+
+	List<Transacao> findTop10ByCartao_NumeroCartaoOrderByIdDesc(String numeroCartao);
 
 }

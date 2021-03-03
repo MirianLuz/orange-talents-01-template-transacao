@@ -6,38 +6,48 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import br.com.br.transacao.cartao.Cartao;
-import br.com.br.transacao.cartao.CartaoRepository;
-import br.com.br.transacao.estabelecimento.Estabelecimento;
-import br.com.br.transacao.estabelecimento.EstabelecimentoRepository;
+import br.com.br.transacao.cartao.EventoDeCartao;
+import br.com.br.transacao.estabelecimento.EventoDeEstabelecimento;
 
 public class EventoDeTransacao {
-	
+
 	@NotBlank
-	private String numero;
-	
-	@NotNull
-	private Cartao cartao;
-	
+	private String id;
+
 	@NotNull
 	private BigDecimal valor;
-	
+
 	@NotNull
-	private Estabelecimento estabelecimento;
-	
+	private EventoDeEstabelecimento estabelecimento;
+
+	@NotNull
+	private EventoDeCartao cartao;
+
+	@NotNull
 	private LocalDateTime efetivadaEm;
-	
-	public EventoDeTransacao(@NotBlank String numero, @NotNull Cartao cartao, @NotNull BigDecimal valor,
-			@NotNull Estabelecimento estabelecimento, LocalDateTime efetivadaEm) {
-		this.numero = numero;
-		this.cartao = cartao;
-		this.valor = valor;
-		this.estabelecimento = estabelecimento;
-		this.efetivadaEm = efetivadaEm;
+
+	public String getId() {
+		return id;
 	}
 
-	public Transacao toModel(CartaoRepository cartaoRepository, EstabelecimentoRepository estabelecimentoRepository) {
-		return new Transacao(numero, cartao, valor, estabelecimento,efetivadaEm);
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public EventoDeEstabelecimento getEstabelecimento() {
+		return estabelecimento;
+	}
+
+	public EventoDeCartao getCartao() {
+		return cartao;
+	}
+
+	public LocalDateTime getEfetivadaEm() {
+		return efetivadaEm;
+	}
+
+	public Transacao toModel() {
+		return new Transacao(id, cartao.toModel(), valor, estabelecimento.toModel(), efetivadaEm);
 	}
 
 }
